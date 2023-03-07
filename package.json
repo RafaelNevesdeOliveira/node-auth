@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx watch src/server.ts"
+    "start": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.0",
@@ -13,6 +13,7 @@
     "dayjs": "^1.11.7",
     "fastify": "^4.11.0",
     "jsonwebtoken": "^9.0.0",
+    "ts-node-dev": "^2.0.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {
