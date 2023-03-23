@@ -2,6 +2,8 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../src/config/prisma";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
+import Mail from "./services/email";
+
 export async function appRoutes(app: FastifyInstance) {
   app.post("/register", async (request, response) => {
     const createUser = z.object({
@@ -42,8 +44,15 @@ export async function appRoutes(app: FastifyInstance) {
       },
     });
 
-    newUser.token;
+    const message: any = Object.assign({}, request.body);
+    // enviar o e-mail de boas-vindas ao novo usuário
 
+    Mail.to = message.email;
+    Mail.subject = "Bem-vindo ao nosso site";
+    Mail.message = "<p>Olá " + first_name + ", Envio de email deu certo carai, usuario cadastrado, sua senha é: OTARIO</p>";
+
+    let resultEnviar = await Mail.sendMail();
+    console.log(resultEnviar)
     return response.status(201).send(newUser);
   });
 
@@ -76,5 +85,17 @@ export async function appRoutes(app: FastifyInstance) {
       response.status(200).send(user);
     }
     response.status(400).send("Invalid Credentials");
+  });
+
+  app.post("/email", async (request, response) => {
+    const message: any = Object.assign({}, request.body);
+
+    Mail.to = message.to;
+    Mail.subject = message.subject;
+    Mail.message = message.message;
+
+    let result = await Mail.sendMail();
+
+    response.status(200).send({ result: result });
   });
 }
