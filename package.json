@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts"
+    "start": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.0",
     "@prisma/client": "^4.8.1",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "body-parser": "^1.20.2",
     "dayjs": "^1.11.7",
     "fastify": "^4.11.0",
@@ -17,6 +20,8 @@
     "googleapis": "^115.0.0",
     "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "ts-node-dev": "^2.0.0",
     "zod": "^3.20.2"
   },
